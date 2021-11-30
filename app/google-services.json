@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "314134091050",
+    "project_id": "inventory-bb707",
+    "storage_bucket": "inventory-bb707.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314134091050:android:2d60e0bc5336f960433a53",
+        "android_client_info": {
+          "package_name": "com.example.inventory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314134091050-8t1iffee4bta94a2gv4cps3n47qfqlh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASPV25OI3dKpjCZvAEXSHZDiMgkxSKRnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314134091050-8t1iffee4bta94a2gv4cps3n47qfqlh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
