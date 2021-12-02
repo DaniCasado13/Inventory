@@ -13,56 +13,62 @@ public class SignUpPresenter implements SignUpContract.SignUpPresenter, SignUpCo
 
     @Override
     public void SignUpUser(User user) {
-        view.ShowProgressBar();
+        view.showProgress();
         signupinteractor.SignUpUser(user);
 
     }
 
     @Override
     public void onSuccess(String message) {
-        view.HideProgressBar();
+        view.hideProgress();
         view.onSuccess(message);
     }
 
     @Override
     public void onFailure(String message) {
-        view.HideProgressBar();
+        view.hideProgress();
         view.onFailure(message);
     }
 
     @Override
-    public void OnMailError() {
-        view.HideProgressBar();
-        view.SetMailError();
-    }
-
-    @Override
-    public void OnMailEmptyError() {
-        view.HideProgressBar();
-        view.SetMailEmptyError();
-    }
-
-    @Override
-    public void OnPasswordError() {
-        view.HideProgressBar();
-        view.SetPasswordError();
-    }
-
-    @Override
-    public void OnPasswordEmptyError() {
-        view.HideProgressBar();
-        view.SetPasswordEmptyError();
-    }
-
-    @Override
     public void OnComfirmPasswordEmptyError() {
-        view.HideProgressBar();
+        view.hideProgress();
         view.SetConfirmPasswordEmptyError();
     }
 
     @Override
     public void OnPasswordEqualsError() {
-        view.HideProgressBar();
+        view.hideProgress();
         view.setPassWordEqualsError();
+    }
+
+    @Override
+    public void onDestroy() {
+        this.view = null;
+        this.signupinteractor = null;
+    }
+
+    @Override
+    public void onEmailEmptyError() {
+        view.hideProgress();
+        view.SetMailEmptyError();
+    }
+
+    @Override
+    public void onPasswordEmptyError() {
+        view.hideProgress();
+        view.SetPasswordEmptyError();
+    }
+
+    @Override
+    public void onPasswordError() {
+        view.hideProgress();
+        view.SetPasswordError();
+    }
+
+    @Override
+    public void onEmailError() {
+        view.hideProgress();
+        view.SetMailError();
     }
 }

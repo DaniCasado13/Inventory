@@ -3,7 +3,7 @@ package com.example.inventory.ui.signup;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
+import com.example.inventory.base.OnRepositoryCallback;
 import com.example.inventory.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -12,13 +12,13 @@ import com.google.firebase.auth.FirebaseAuth;
 //dcasadocarvajal@gmail.com Dani1234?
 public class SignUpRepository implements SignUpContract.SignUpRepository {
     private static SignUpRepository instance;
-    private static SignUpContract.OnSignUpListener signuplistener;
+    private static OnRepositoryCallback signuplistener;
     private static final String TAG = SignUpRepository.class.getName();
 
     private SignUpRepository() {
     }
 
-    public static SignUpRepository newInstance(SignUpContract.OnSignUpListener listener) {
+    public static SignUpRepository newInstance(OnRepositoryCallback listener) {
         if (instance == null) {
             instance = new SignUpRepository();
         }

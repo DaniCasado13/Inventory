@@ -3,37 +3,38 @@ package com.example.inventory.ui.signup;
 import android.text.TextUtils;
 import android.util.Patterns;
 
+import com.example.inventory.base.OnRepositoryCallback;
 import com.example.inventory.data.model.User;
-
+import com.example.inventory.data.repository.LoginRepositoryImpl;
 import com.example.inventory.utils.CommonUtils;
 
-public class SignUpInteractor implements SignUpContract.OnSignUpListener {
+public class SignUpInteractor implements OnRepositoryCallback {
     private SignUpContract.SignUpRepository signuprepository;
     private SignUpContract.SignUpInteractor signupinteractor;
 
 
     public SignUpInteractor(SignUpContract.SignUpInteractor interactor) {
         this.signupinteractor = interactor;
-        this.signuprepository = SignUpRepository.newInstance(this);
+        this.signuprepository = LoginRepositoryImpl.newInstance(this);
 
     }
 
     //reglas de negocio
     public void SignUpUser(User user) {
         if (TextUtils.isEmpty(user.getEmail())) {
-            signupinteractor.OnMailEmptyError();
+            signupinteractor.onEmailEmptyError();
             return;
         }
         if (TextUtils.isEmpty(user.getPassword())) {
-            signupinteractor.OnPasswordEmptyError();
+            signupinteractor.onPasswordEmptyError();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(user.getEmail()).matches()) {
-            signupinteractor.OnMailError();
+            signupinteractor.onEmailError();
             return;
         }
         if (!CommonUtils.isPasswordValid(user.getPassword())) {
-            signupinteractor.OnPasswordError();
+            signupinteractor.onPasswordError();
             return;
         }
         signuprepository.SignUp(user);

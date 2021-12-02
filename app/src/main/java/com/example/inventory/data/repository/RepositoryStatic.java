@@ -3,13 +3,14 @@ package com.example.inventory.data.repository;
 import com.example.inventory.data.model.User;
 import com.example.inventory.ui.login.LoginContract;
 import com.example.inventory.ui.signup.SignUpContract;
-
+import com.example.inventory.base.OnRepositoryCallback;
 import java.util.ArrayList;
 
 public class RepositoryStatic implements LoginContract.LoginRepository,SignUpContract.SignUpRepository {
     private static RepositoryStatic instance;
-    private LoginContract.OnLoginListener loginlistener;
-    private SignUpContract.OnSignUpListener signuplistener;
+   // private LoginContract.OnLoginListener loginlistener;
+   // private SignUpContract.OnSignUpListener signuplistener;
+    private static OnRepositoryCallback callback;
     private ArrayList<User> users;
 
     private RepositoryStatic(){
@@ -24,17 +25,11 @@ public class RepositoryStatic implements LoginContract.LoginRepository,SignUpCon
 
     }
 
-    private static RepositoryStatic getInstance(LoginContract.OnLoginListener listener){
+    private static RepositoryStatic getInstance(OnRepositoryCallback listener){
 
         if (instance==null)
             instance=new RepositoryStatic();
-        instance.loginlistener=listener;
-        return instance;
-    }
-    private static RepositoryStatic getInstance(SignUpContract.OnSignUpListener listener){
-        if (instance == null)
-            instance = new RepositoryStatic();
-        instance.signuplistener = listener;
+       callback=listener;
         return instance;
     }
 
@@ -43,7 +38,7 @@ public class RepositoryStatic implements LoginContract.LoginRepository,SignUpCon
         for (User item:users){
 
             if (item.getEmail().equals(user.getEmail())&&item.getPassword().equals(user.getPassword())){
-                loginlistener.onSuccess("Usuario Correcto");
+                callback.onSuccess("Usuario Correcto");
                 return;
 
             }
@@ -52,19 +47,19 @@ public class RepositoryStatic implements LoginContract.LoginRepository,SignUpCon
 
 //En caso de que no exista
 
-        loginlistener.onFailure("Error en la autenticación");
+        callback.onFailure("Error en la autenticación");
     }
 
     @Override
     public void SignUp(User user) {
         if(users.contains(user))//el usuario existe
         {
-            signuplistener.onFailure("El usuario ya existe en el sistema");
+            callback.onFailure("El usuario ya existe en el sistema");
             return;
         }
         //en caso contrario lo añadimos
         users.add(user);
-        signuplistener.onSuccess("Registro realizado con exito");
+        callback.onSuccess("Registro realizado con exito");
 
     }
 }

@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.inventory.MainActivity;
@@ -20,8 +19,9 @@ import com.example.inventory.data.model.User;
 import com.example.inventory.databinding.ActivityLoginBinding;
 import com.example.inventory.ui.signup.SignUpActivity;
 import com.example.inventory.utils.CommonUtils;
-
-import java.util.regex.Pattern;
+import com.example.inventory.base.Event;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
             loginpresenter.validateCredentials(new User(binding.tilEmail.getEditText().getText().toString(), binding.tiledtPassword.getText().toString()));
         });
+        EventBus.getDefault().register(this);
     }
 
     private void startMainActivity() {
@@ -65,13 +66,32 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(loginpresenter==null)
+        loginpresenter=new LoginPresenter(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        loginpresenter=null;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (loginpresenter != null){
-            loginpresenter = null;
+            loginpresenter.OnDestroy();
         }
+        EventBus.getDefault().unregister(this);
     }
 
+    @Subscribe
+    public void onEvent(Event event) {
+        hideProgress();
+        Toast.makeText(this, event.getMessage(),Toast.LENGTH_SHORT).show();
+    }
     //region Metodos del contrato con el presenter
     @Override
     public void setUserEmptyError() {
@@ -97,12 +117,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
         binding.pbLogin.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideProgressBar() {
+    public void hideProgress() {
         binding.pbLogin.setVisibility(View.GONE);
     }
 

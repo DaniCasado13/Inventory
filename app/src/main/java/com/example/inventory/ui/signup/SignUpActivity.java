@@ -41,6 +41,13 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(presenter!=null)
+            presenter.onDestroy();
+    }
+
+    @Override
     public void onSuccess(String message) {
         Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG).show();
         new Handler().postDelayed(new Runnable() {
@@ -57,10 +64,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG).show();
     }
 
-    @Override
-    public void SetUserEmptyError() {
-        binding.tiedUserName.setError(getString(R.string.nameEmptyError));
-    }
 
     @Override
     public void SetPasswordEmptyError() {
@@ -93,13 +96,15 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         binding.tilConfirmPassword.setError(getString(R.string.notEqualsPasswordError));
     }
 
+
+
     @Override
-    public void ShowProgressBar() {
+    public void showProgress() {
         binding.pbSignUp.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void HideProgressBar() {
+    public void hideProgress() {
         binding.pbSignUp.setVisibility(View.INVISIBLE);
     }
 
