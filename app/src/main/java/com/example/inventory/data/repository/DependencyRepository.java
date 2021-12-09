@@ -16,11 +16,11 @@ public class DependencyRepository implements DependencyListContract.Repository {
     }
 
     private void initialice() {
-        list.add(new Dependency("Aula 1", "A1", null, null));
-        list.add(new Dependency("Aula 2", "A2", null, null));
-        list.add(new Dependency("Aula 3", "A3", null, null));
-        list.add(new Dependency("Aula 4", "A4", null, null));
-        list.add(new Dependency("Aula 5", "A5", null, null));
+        list.add(new Dependency("Sistemas de Gestion empresarial", "SGEMP", null, null));
+        list.add(new Dependency("Desarrollo de interfaces", "DEINT", null, null));
+        list.add(new Dependency("Programacion Multimedia", "PMDMO", null, null));
+        list.add(new Dependency("Programacion de procesos", "PSPRO", null, null));
+        list.add(new Dependency("Acceso a Datos", "ACDAT", null, null));
     }
 
     public static DependencyRepository getInstance(DependencyListContract.OnDependencyCallback callback){

@@ -3,13 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="20sp">
 
     <TextView
         android:id="@+id/tvNombreDependencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/ivDependencyItem"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivDependencyItem"
+        app:layout_constraintTop_toTopOf="@+id/ivDependencyItem" />
+
+    <ImageView
+        android:id="@+id/ivDependencyItem"
+        android:layout_width="@dimen/dependency_item_size"
+        android:layout_height="@dimen/dependency_item_size"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

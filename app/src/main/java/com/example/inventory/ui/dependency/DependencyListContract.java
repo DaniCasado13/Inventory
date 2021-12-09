@@ -1,6 +1,7 @@
 package com.example.inventory.ui.dependency;
 
 import com.example.inventory.base.IBasePresenter;
+import com.example.inventory.base.IProgressView;
 import com.example.inventory.base.OnRepositoryDeleteCallBack;
 import com.example.inventory.base.OnRepositoryListCallBack;
 import com.example.inventory.base.OnRepositoryUndoCallBack;
@@ -9,8 +10,9 @@ import com.example.inventory.data.model.Dependency;
 import java.util.List;
 
 public interface DependencyListContract {
-    interface view{
-
+    interface view extends OnRepositoryListCallBack,IProgressView{
+        void showData(List<Dependency> list);
+        void showNoData();
     }
 
     interface Presenter extends IBasePresenter {
